@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Hello World!</title>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	    <script type="text/javascript">
+
+	        function submitHello() {
+	    	    var jqxhr = $.post("hello").done(function() {
+	    	    		$("#status").html( content ).show();
+	    	    	})
+	    	    	.fail(function(response) {
+	    	    		$("#status").html( response.responseText ).show();
+	    	    	});
+	            
+	            return false;
+	        }
+	    </script>
+    </head>
+    <body>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+        <button type="submit" onclick="return submitHello();">Send Hello POST</button>
+        <div id="status"></div>
+    </body>
+</html>
